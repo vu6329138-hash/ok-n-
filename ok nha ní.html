@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 20/10 - Happy Em 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffc3a0 0%, #ffa8a8 50%, #ffdde1 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Mưa trái tim động ngập màn hình */
+        .heart-fall {
+            position: absolute;
+            top: -10%;
+            font-size: 1.5rem;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Hộp quà bấm mở */
+        .gift-box-wrapper {
+            text-align: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .gift-emoji {
+            font-size: 7rem;
+            animation: bounce 1.2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(-15px); }
+        }
+
+        .click-text {
+            margin-top: 15px;
+            background: #ffffff;
+            color: #ff3366;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.2);
+            border: 2px solid #ffb3c1;
+            display: inline-block;
+        }
+
+        /* Khung thiệp */
+        .card {
+            display: none;
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(255, 75, 110, 0.3);
+            border: 3px solid #ffccd5;
+            z-index: 10;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Tiêu đề Happy Em */
+        .header-title {
+            color: #ff3366;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        /* Bó hoa hồng to */
+        .big-bouquet {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            animation: floatBouquet 2s infinite ease-in-out;
+            filter: drop-shadow(0 10px 15px rgba(255, 0, 85, 0.3));
+        }
+
+        @keyframes floatBouquet {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.05); }
+        }
+
+        /* Câu chúc in đậm chính xác 100% */
+        .message {
+            color: #ff3366;
+            font-size: 1.35rem;
+            line-height: 1.8;
+            font-weight: 800;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(255, 51, 102, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mưa trái tim rơi -->
+    <div id="rainContainer"></div>
+
+    <!-- Hộp quà tương tác -->
+    <div class="gift-box-wrapper" id="giftBox" onclick="openCard()">
+        <div class="gift-emoji">🎁</div>
+        <div class="click-text">💖 Chạm vào đây để mở thiệp nha! 🌷</div>
+    </div>
+
+    <!-- Khung thiệp chính -->
+    <div class="card" id="loveCard">
+        <div class="header-title">Happy Em 🌸</div>
+        <div class="big-bouquet">💐🌹</div>
+        <div class="message" id="typedMessage"></div>
+    </div>
+
+    <script>
+        // Tạo mưa trái tim và hoa bay lượn
+        const rainContainer = document.getElementById('rainContainer');
+        const elements = ['💖', '🌹', '🌷', '✨', '💕', '🌸'];
+
+        for (let i = 0; i < 30; i++) {
+            const item = document.createElement('div');
+            item.className = 'heart-fall';
+            item.innerText = elements[Math.floor(Math.random() * elements.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            item.style.animationDelay = Math.random() * 3 + 's';
+            rainContainer.appendChild(item);
+        }
+
+        // Đúng nguyên văn câu chúc bạn yêu cầu
+        const messageText = "chúc em 20/10 hạnh phúc, ráng học, ráng ăn, ráng ngủ,… và sống thiệt hạnh phúc nhaaa";
+        let index = 0;
+
+        function openCard() {
+            document.getElementById('giftBox').style.display = 'none';
+            document.getElementById('loveCard').style.display = 'block';
+
+            function typeWriter() {
+                if (index < messageText.length) {
+                    document.getElementById('typedMessage').innerHTML += messageText.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 35);
+                }
+            }
+            typeWriter();
+        }
+    </script>
+</body>
+</html>
